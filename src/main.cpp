@@ -19,9 +19,6 @@ SpanCharacteristic *wind;
 SpanCharacteristic *lightning;
 SpanCharacteristic *snChar;
 
-SpanAccessory *bridge;
-SpanService *bridgeService;
-
 bool hardwareInfo = false;
 static nvs_handle wf_nvs;
 size_t len;
@@ -42,49 +39,6 @@ void connectUDPReceiver()
 				return;
 			}
 			const char *type = doc["type"];
-
-			if (!hardwareInfo) {
-				nvs_flash_init();
-
-				Serial.println("\n############################");
-
-				// Mark hardwareinfo as found
-				hardwareInfo = true;
-				Serial.println("Writing device data to NV storage");
-				// HB-00040538
-
-				// Open NV Namespace
-				Serial.printf("Opening storage with namespace %s ... ", HARDWARE_NAMESPACE);
-				nvs_open(HARDWARE_NAMESPACE, NVS_READWRITE, &wf_nvs);
-				Serial.println("Done!");
-
-				// Parse datagram and convert value to non constant char
-				const char *hub = doc["hub_sn"];
-				// char hubSN[12] = const_cast<char[]>(&hub);
-				// char hubSN[12];
-				// memcpy(hubSN, &hub, sizeof(char*)); 
-				// sprintf(hubSN,"%s",hub);
-				// char hubSN[12] = "HB-0100121";										// Hardcoded value for testing
-				// Save values
-				nvs_set_str(wf_nvs, "hubSN", hub);
-				nvs_commit(wf_nvs);
-
-				// Retreive value for test
-				// char sn[12] = "";
-				Serial.println("Value Save!");
-				char sn[12] = "";
-				nvs_get_str(wf_nvs, "hubSN", sn, &len);
-				Serial.printf("%s\n", sn);
-				Serial.print("Saved and loaded the following value: ");
-				Serial.println(sn);
-
-				
-				// Close nv storage
-				Serial.println("Closing storage");
-				nvs_close(wf_nvs);
-
-				Serial.println("############################\n");
-			}
 
 			if (strcmp(type, "obs_st") == 0)
 			{
@@ -108,9 +62,7 @@ void connectUDPReceiver()
 			if (strcmp(type, "rapid_wind") == 0)
 			{
 				JsonArray ob = doc["ob"];
-				// long time_int = ob[0]; // 1588948614
-				float w_s = ob[1]; // 0.27
-				// int w_d = ob[2];	 // 144;
+				float w_s = ob[1];
 				if (w_s > 10)
 				{
 					wind->setVal(0);
@@ -145,68 +97,16 @@ void connectUDPReceiver()
 }
 
 void setup() {
-	nvs_flash_init();
-	Serial.begin(115200);
-
-	//////////// NV Storage Loading //////////////
-
-	Serial.println("\n############################");
-
-	// Initialize default values
-	// const char *sn = "HB-1234"; 												// hardcoded value for testing.  Must be "const char *var"
-	char hubSN[12] = "HB-00000001";	  											// Default from WeatherFlow API
-
-	// Open NV Namespace
-	nvs_open(HARDWARE_NAMESPACE, NVS_READWRITE, &wf_nvs);
-	Serial.printf("Opening storage with namespace %s\n", HARDWARE_NAMESPACE);
 	
-	// If namespace exists, open it and set values otherwise, use hardcoded values
-	Serial.printf("Looking for namespace %s.... ", HARDWARE_NAMESPACE);
-	if (!nvs_get_str(wf_nvs, "hubSN", NULL, &len)) {
-		Serial.println("Found!");
-
-		// Set value from NV to char array
-		nvs_get_str(wf_nvs, "hubSN", hubSN, &len);
-		
-		// Announce found value
-		Serial.printf("Loaded value: %s\n", hubSN);
-
-	}
-	else {
-		// Set values to hardcoded chars
-		Serial.println("Not found :/\n");
-		Serial.printf("Using hardcoded value: %s\n", hubSN);
-	}
-
-	// Close NV namespace
-	Serial.printf("Closing namespace: %s\n", HARDWARE_NAMESPACE);
-	nvs_close(wf_nvs);
-
-	Serial.println("############################\n");
-
-
-	//////////// NV Storage Loading //////////////
-
+	Serial.begin(115200);
 	homeSpan.begin(Category::Bridges, "WeatherFlow Hub", "WeatherFlow", "Tempest");
-	// homeSpan.setLogLevel(2);
 	homeSpan.setHostNameSuffix("WeatherFlow");
 	homeSpan.enableOTA(true);
 	homeSpan.setQRID("WFHK");
-	homeSpan.setApSSID("TempestHK");
+	homeSpan.setApSSID("WeatherFlowHK");
+	homeSpan.setApPassword("weatherflow");
 	homeSpan.setWifiCallback(connectUDPReceiver);	
-	// const char *a;
-	// sprintf(a,"%s",hubSN);
-	char *b;
-	b = &hubSN[0];
-	char *c = hubSN;
-	const char *a = b;
-	Serial.println(hubSN);
-	Serial.println(a);
-	Serial.println(b);
-	Serial.println(c);
-
-	// const char *a = new char(hubSN);
-
+	
 	new SpanAccessory();
 	new Service::AccessoryInformation();
 	new Characteristic::Name("WeatherFlow Hub");
@@ -278,24 +178,9 @@ void setup() {
 	new Service::StatelessProgrammableSwitch();
 	new Characteristic::Name("Rain Sensor");
 	rain = new Characteristic::ProgrammableSwitchEvent();
-
-	// cA->hapName = "12";
-	// (*cA).setVal="5";
-	// const char* x = "test";
-	// cA->setVal(String("test"));
-
-	// cB = bridgeService->Characteristics[2];
-	// char *buff;
-	// nameS->sprintfAttributes(buff, 0);
-	// Serial.write(buff);
-	// cB->sprintfAttributes(1);
 }
 
 void loop()
 {
-	//  char* buff;
-	//  nameS->sprintfAttributes(buff, 0);
-	//  Serial.write(buff);
-
 	homeSpan.poll();
 }
