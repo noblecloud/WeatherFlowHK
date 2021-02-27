@@ -21,8 +21,10 @@ Uses an ESP32 based microcontroller to listen to the UDP packets sent from a Tem
 3. Type "W" into the serial input and press *Send* or press the enter key on your keyboard then follow the prompts
 
 ##### 3). Connect to HomeKit
-Add the device like you would any other accessory by using your camera to scan this code or typing ```466-37-726``` in manually
 ![Default HomeKit Code](https://github.com/HomeSpan/HomeSpan/raw/master/docs/images/defaultSetupCode.png)
+
+Add the device like you would any other accessory by using your camera to scan the code above or typing ```466-37-726``` in manually
+
 \*\**Optional: Set your own code within the Serial Monitor by typing* "S"\*\*
 
 ## Functionality
