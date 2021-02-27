@@ -30,6 +30,6 @@ __*Note: this is only the last by the last event announced to HomeKit. This will
 - [ ] Display more info via sensor names *e.g. "Wind: 1.4m/s"*
 - [ ] Support for Air and Sky
 - [ ] Add optional BLE subscription to hub
-
 ## Dependencies
 Uses the wonderful [HomeSpan](https://github.com/HomeSpan/HomeSpan) library for HomeKit functionality and [ArduinoJSON](https://github.com/bblanchon/ArduinoJson) for parsing the UDP datagrams.
+
