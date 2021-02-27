@@ -26,3 +26,5 @@ Long Press: Nothing
 ## Future
 - [ ] Add webserver for adjusting event thresholds
 - [ ] Display more info via sensor names *e.g. "Wind: 1.4m/s"*
+- [ ] Support for Air and Sky
+- [ ] Add optional BLE subscription to hub

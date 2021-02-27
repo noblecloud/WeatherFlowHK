@@ -131,12 +131,11 @@ void connectUDPReceiver()
 				{
 					lightning->setVal(2);
 				}
-				lightning->updateTime();
 			}
 
 			if (strcmp(type, "evt_precip") == 0)
 			{
-				if (lightning->timeVal())
+				if (lightning->timeVal() > 0)
 				{
 					rain->setVal(0);
 				}
