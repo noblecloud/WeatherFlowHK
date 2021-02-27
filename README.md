@@ -8,8 +8,10 @@ Uses an ESP32 based microcontroller to listen to the UDP packets sent from a Tem
 ##### 1). Install with Arduino IDE
 1. Open the Arduino sketch __```WeatherFlowHK.ino```__ in the Arduino IDE
 2. Install both the [HomeSpan](https://github.com/HomeSpan/HomeSpan) and [ArduinoJson](https://github.com/bblanchon/ArduinoJson) libraries
+    
     __*Sketch > Include Libraries > Manage Libraries*__
 3. Follow the directions [here](https://github.com/espressif/arduino-esp32/blob/master/docs/arduino-ide/boards_manager.md) to install the various ESP32 boards or install whatever is relevant to your specific board and select the board you are using from
+    
     __*Tools > Board > ESP32 Arduino > Your Board*__
 4. Upload the sketch to the board with __*Sketch > Upload*__ or click the little arrow pointing right in the top left corner of the window
 
