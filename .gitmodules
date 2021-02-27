@@ -1,0 +1,6 @@
+[submodule "lib/HomeSpan"]
+	path = lib/HomeSpan
+	url = https://github.com/HomeSpan/HomeSpan.git
+[submodule "lib/ArduinoJson"]
+	path = lib/ArduinoJson
+	url = https://github.com/bblanchon/ArduinoJson.git
