@@ -119,7 +119,7 @@ void connectUDPReceiver()
 
 			if (strcmp(type, "evt_strike") == 0)
 			{
-				if (lightning->timeVal() > 10000)
+				if (lightning->timeVal())
 				{
 					lightning->setVal(0);
 				}
@@ -131,11 +131,12 @@ void connectUDPReceiver()
 				{
 					lightning->setVal(2);
 				}
+				lightning->updateTime();
 			}
 
 			if (strcmp(type, "evt_precip") == 0)
 			{
-				if (lightning->timeVal() > 10000)
+				if (lightning->timeVal())
 				{
 					rain->setVal(0);
 				}
