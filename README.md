@@ -5,7 +5,7 @@ Very basic HomeKit bridge for WeatherFlow Tempest Weather Station.
 Uses an ESP32 based microcontroller to listen to the UDP packets sent from a Tempest bridge and relays them out as HomeKit HAP Notifications. No internet connection required and everything stays local.
 
 ## Directions
-##### 1). Install with Arduino IDE
+### 1). Install with Arduino IDE
 1. Open the Arduino sketch __```WeatherFlowHK.ino```__ in the Arduino IDE
 2. Install both the [HomeSpan](https://github.com/HomeSpan/HomeSpan) and [ArduinoJson](https://github.com/bblanchon/ArduinoJson) libraries
     
@@ -15,12 +15,12 @@ Uses an ESP32 based microcontroller to listen to the UDP packets sent from a Tem
     __*Tools > Board > ESP32 Arduino > Your Board*__
 4. Upload the sketch to the board with __*Sketch > Upload*__ or click the little arrow pointing right in the top left corner of the window
 
-##### 2). Configuring the device for HomeKit
+### 2). Configuring the device for HomeKit
 1. Open the Serial Monitor by clicking the magnifying glass in the top right of the window or __*Tools > Serial Monitor*__
 2. Change the line ending to __*Newline*__ and the baud to __*115200*__ *(bottom right of the Serial Monitor)*
 3. Type "W" into the serial input and press *Send* or press the enter key on your keyboard then follow the prompts
 
-##### 3). Connect to HomeKit
+### 3). Connect to HomeKit
 ![Default HomeKit Code](https://github.com/HomeSpan/HomeSpan/raw/master/docs/images/defaultSetupCode.png)
 
 Add the device like you would any other accessory by using your camera to scan the code above or typing ```466-37-726``` in manually
